@@ -49,7 +49,7 @@ age = 13
 '''
 برنامه ای بنوس که چهار عدد را در چهار متغیر ذخیره نمایدو سپس:
 متغیر پنجمی تعریف کنید که حاوی عبارت زیر باشد:
-عدد دوم را در عدد سوم ضرب نماید و سپس عدد اول را از حاصلضرب بدست سآمده تفریق نماید
+عدد دوم را در عدد سوم ضرب نماید و سپس عدد اول را از حاصلضرب بدست سسآمده تفریق نماید
 درنهایت حاصل عبارت بدست آمده با عدد چهارم جمع شده و در متغیر پنجم ذخیره شود
 در انتها مقدار متغیر پنجم نمایش داده شود.
 
@@ -63,3 +63,26 @@ ali and tina and nikan are family
 و در نهایت عبارت در ترمینال پرینت شود
 
 '''
+
+# print('*' * 5)
+# print(5 * '*')
+# message = 'aaaaa' * 10
+# print(message)
+
+# string = 'abcdefg'
+# print(string[0])
+# print(string[1])
+# print(string[2])
+# print(string[3])
+# print(string[4])
+# print(string[5])
+# print(string[6])
+# print(string[7])  # Index Error, index out of range
+# print(len(string))
+# print(string[len(string)-1])
+# print(string[-1])
+# print(string[-2])
+# print(string[-3])
+
+name = input('enter your name ')
+print(name)
