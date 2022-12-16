@@ -47,4 +47,4 @@ print(type(y))
 # camel case
 # studentName = 'ali'
 # big camel case
-StudentName = 'ali'
+# StudentName = 'ali'
