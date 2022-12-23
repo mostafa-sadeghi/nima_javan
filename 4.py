@@ -65,25 +65,34 @@
 # print(f'baghimande taghsime {x} bar {y} mishavad : {res}')
 # مقایسه دو مقدار
 
-x = 1
-y = 2
-z = x == y
-print(z)
-print(x == y)
+# x = 1
+# y = 2
+# z = x == y
+# print(z)
+# print(x == y)
 
-name1 = 'ali'
-name2 = 'reza'
-print(name1 == name2)
-name1 = 'ali'
-name2 = 'ali'
-result = name1 == name2
-print(result)
+# x = 1 == 2
+# print(x)
+
+a = 1
+b = 2
+
+x = a == b
+print(x)
+print(a == b)
 
 
+# name1 = 'ali'
+# name2 = 'reza'
+# print(name1 == name2)
+# name1 = 'ali'
+# name2 = 'ali'
+# result = name1 == name2
+# print(result)
 # بخش پذیری
 # آیا عدد وارد شده زوج است یا خیر
-
-
 # بررسی زوج بودن عدد
-# number = int(input('enter a number> '))
-# print(number % 2 == 0)
+number = int(input('enter a number> '))
+print(number % 2 == 0)
+'1' 1
+'a'
