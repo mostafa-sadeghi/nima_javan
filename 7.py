@@ -2,6 +2,10 @@
 # https://docs.python.org/3/library/turtle.html
 # convert to gif:
 # https://cloudconvert.com/png-to-gif
+
+# remove background
+# https://www.remove.bg/
+
 import turtle
 
 s = turtle.Screen()
@@ -66,3 +70,14 @@ p.setheading(45)  # p.seth(45)
 p.forward(200)
 s.exitonclick()
 print("END")
+
+
+# excersise1
+'''
+مثلث
+پنجضلعی
+شش ضلعی
+وستاره
+
+
+'''
