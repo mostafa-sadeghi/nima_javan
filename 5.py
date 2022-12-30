@@ -35,11 +35,12 @@
 
 
 # exercise1 :
-# z = [1, 2, 3, 4, 5]
+z = [1, 2, 3, 4, 5]
 '''
 جمع اعداد لیست بالا را حساب کن و نمایش بده
 '''
-
+# s = z[0] + z[1] + z[2] + z[3] + z[4]
+# print("sum is:", s)
 
 # slice برش
 # num = z[1:4]
@@ -54,9 +55,10 @@ z
 ایجاد کن که شامل عدد های 1و 2 باشد
 [1,2]
 '''
+# x = z[:2]
+# print("my slice is:", x)
 
-
-# numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 # even_number = numbers[1::2]
 # print(even_number)
 
@@ -67,6 +69,8 @@ numbers
 یک لیست از اعداد فرد بین یک تا 10 بسازی
 
 '''
+odd_numbers = numbers[::2]
+print("odd numbers are:", odd_numbers)
 
 # names = ['nima', 'nikan', 'matin', 'mohamad', 'reza', 'javad']
 # sample = names[::2]
@@ -159,11 +163,11 @@ x = (1, 2, 3, 4, 5)
 # x.remove(3) # تعریف شده نیست
 # del x[0] # تعریف شده نیست
 # print(x)
-v = ()
-print(type(v))
+# v = ()
+# print(type(v))
 
-v = (1,)
-print(type(v))
+# v = (1,)
+# print(type(v))
 
 
 # z = (1,)
