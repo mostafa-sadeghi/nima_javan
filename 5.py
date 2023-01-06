@@ -69,8 +69,8 @@ numbers
 یک لیست از اعداد فرد بین یک تا 10 بسازی
 
 '''
-odd_numbers = numbers[::2]
-print("odd numbers are:", odd_numbers)
+# odd_numbers = numbers[::2]
+# print("odd numbers are:", odd_numbers)
 
 # names = ['nima', 'nikan', 'matin', 'mohamad', 'reza', 'javad']
 # sample = names[::2]
