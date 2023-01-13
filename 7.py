@@ -133,6 +133,20 @@
 
 '''
 
+
+# total = 0
+# for i in range(5):
+#     number = float(input(f'Enter number {i+1} > '))
+#     total += number
+#     # total = total + numbers
+
+# print(f'sum of 5 numbers is: {total:.2f}')
+
+
+# x = '1.2'
+# z = float(x) + 3
+# print(z)
+
 # exercise 2
 '''
 با کمک حلقه فور برنامه ای بنویس که پنج اسم را از ورودی دریافت نماید و داخل یک لیست ذخیره کند
@@ -140,6 +154,18 @@
 names
 
 '''
+
+# names = []
+# for i in range(5):
+#     name = input(f'enter name number {i+1} ')
+#     names.append(name)
+
+# print(f'all names are : {names}')
+# print('-----------------------------')
+# print(f'{"id":<5}{"Student name":^20}')
+# for i in range(len(names)):
+#     print(f'{(i+1):<5}{names[i]:^20}')
+
 
 # triangle
 import turtle
@@ -210,6 +236,7 @@ p.pensize(4)
 
 # drawing animation clock
 p.shape('turtle')
+p.speed('fast')
 for i in range(12):  # i = 2
     p.penup()
     p.seth(-30 * i + 60)
@@ -225,5 +252,17 @@ for i in range(12):  # i = 2
 # قلم را به یک مکان مشخص ببر
 # قلم را روی زمین  بگذار
 # p.circle(شعاع)
+
+
+p.penup()
+p.goto(0, -240)
+p.pendown()
+p.circle(240)
+p.penup()
+
+p.setposition(-120, 250)
+p.write("Our nice Animation clock", font=('Arial', 16, 'bold'))
+# p.ht()
+p.home()
 
 s.exitonclick()
