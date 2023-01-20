@@ -168,14 +168,7 @@ names
 
 
 # triangle
-import turtle
-s = turtle.Screen()
-s.bgcolor('cyan')
-s.setup(620, 620)
 
-p = turtle.Pen()
-p.pencolor('red')
-p.pensize(4)
 
 # p.forward(100)
 # p.left(120)
@@ -235,8 +228,15 @@ p.pensize(4)
 
 
 # drawing animation clock
+import turtle
+s = turtle.Screen()
+s.bgcolor('orange')
+s.setup(620, 620)
+p = turtle.Pen()
+p.pencolor('red')
+p.pensize(4)
 p.shape('turtle')
-p.speed('fast')
+p.speed('normal')
 for i in range(12):  # i = 2
     p.penup()
     p.seth(-30 * i + 60)
@@ -247,13 +247,6 @@ for i in range(12):  # i = 2
     p.forward(20)
     p.write(i+1, font=('', 12, 'normal'))
     p.home()
-
-# قلم را بیار بالا
-# قلم را به یک مکان مشخص ببر
-# قلم را روی زمین  بگذار
-# p.circle(شعاع)
-
-
 p.penup()
 p.goto(0, -240)
 p.pendown()
