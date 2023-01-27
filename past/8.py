@@ -44,6 +44,9 @@ for i in range(9):
         print('* ' * (i+1))
     else:
         print('* ' * (9-i))
+
+
+        
 n = int(input('enter how many stars do you want? '))
 for i in range(n):
     if i <= n/2:
