@@ -43,7 +43,7 @@ message = reza's grade is A or B or ...
 '''
 Exercise 2 :
 قرار است سفری از تهران به مشهد داشته باشید. با کمک تابع برنامه ای بنویسید که هزینه بنزین مصرفی یعنی رفت و برگشت 
-را محتسبه نماید.
+را محاسبه نماید.
 ورودی برنامه میزان مصرف خودرو
 خروجی برنامه هزینه بنزین مصرفی در رفت و برگشت
 مسافت از تهران به مشهد 1000 کیلومتر فرض شده است.
@@ -51,3 +51,33 @@ Exercise 2 :
 تا 60 لیتر، لیتری 1500
 از 60 لیتر بیشتر، لیتری 3000 در نظر گرفته می شود.
 '''
+
+DISTANCE = 2000
+
+consumption = float(input("enter your cars's consuption:> "))
+
+
+def calc_litr(consumption: float, distance: float) -> float:
+    '''
+    This function is used to calculate amounts of litr that a car uses
+    Parameters: float, consumption
+    Returns : float
+    '''
+    return distance * consumption / 100
+
+
+def calc_cost(litr: float) -> float:
+    '''
+    This function is used to calculate the cost of our trip.
+    Parameters: float, litr
+    Returns : float
+    '''
+    if litr <= 60:
+        return litr * 1500
+    return (60*1500) + (litr - 60)*3000
+
+
+litr_result = calc_litr(consumption, DISTANCE)
+total_cost = calc_cost(litr_result)
+
+print(f"our trip's cost from tehran to mashhad is : {total_cost}")
