@@ -11,21 +11,18 @@ digit_posiotion = ["first", "second", "third", "forth",
 #     i += 1
 
 
-def check_unique_digits(numbers):
+def is_unique_digits(numbers):
     status = True
     for i in range(len(numbers)):
         if numbers[i] in numbers[i+1:]:
             status = False
+            break
     return status
-
-
-result = check_unique_digits([1, 2, 0])
-print(result)
 
 
 def generate_secret_number():
     n = random.randrange(100, 1000)
-    print("actual number is:", n)
+    # print("actual number is:", n)
     # i = 0
     numbers = []
     while (n != 0):
@@ -34,7 +31,11 @@ def generate_secret_number():
         # print(f"{digit_posiotion[i]} digit is:", m, end="\t")
         n = n // 10
         # i += 1
-    print(numbers)
+    numbers.reverse()
+    return numbers
 
 
-# generate_secret_number()
+sec_num = generate_secret_number()
+while not is_unique_digits(sec_num):
+    sec_num = generate_secret_number()
+print(sec_num)
