@@ -205,8 +205,106 @@
 # d. if a < b and c:
 
 
-a = 2
-b = 3
-c = 4
-if a < b & c:
-    print("ok")
+# a = 2
+# b = 3
+# c = 4
+# if a < b & c:
+#     print("ok")
+
+
+# print("3" == "3")
+
+
+# print(" 3" == "3")
+# print(len(" 3"))
+# print(len("3"))
+# for s in " 3":
+#     print(s)
+# print("----------------------")
+# for s in "3":
+#     print(s)
+
+
+# print(3 < 4)
+
+
+# print(3 < 10)
+
+
+# print("3" < "4")
+# print("ali" < "maryam")
+# print("sima" < "tina")
+# print("nima" < "maryam")
+
+# print(ord('3'))
+# print(ord('4'))
+
+# print("3" < "10")
+# print(ord('3'))
+# print(ord('1'))
+
+
+# print((2 == 2) == "True")
+# True == "True"
+# print(type(True))
+# print(type("True"))
+
+# print((2 == 2) == True)
+
+
+# print(3 < "3")  # Error
+# print(3 == "3")
+# print(3 <= "3")  # error
+# print('2' <= "3")
+# print('3' <= "3")
+# print('ali' <= "reza")
+# print('ali' <= "ali")
+
+'''
+یک عدد را از ورودی بگیری
+و 
+اگر عدد بر سه بخش پذیر بود؟
+fizz
+را پرینت کند
+
+اگر بر پنج بخش پذیر بود
+
+buzz را پرینت کند
+اگر بر هر دو بخش پذیر بود
+fizzbuzz
+'''
+number = int(input('enter a number:> '))
+# write a function that takes number as parameter and do above describtion
+# function returns fizz or buzz or fizzbuzz
+
+
+def fizz_buzz(num):
+    if num % 3 == 0 and num % 5 == 0:
+        return "FizzBuzz"
+
+    elif num % 3 == 0:
+        return "Fizz"
+
+    elif num % 5 == 0:
+        return "Buzz"
+
+
+print(fizz_buzz(number))
+
+
+'''
+عدد از ورودی  n = 3
+oooooo
+o    o
+oooooo
+عدد از ورودی  n = 8
+oooooooooooooooo
+o              o
+o              o
+o              o
+o              o
+o              o
+o              o
+oooooooooooooooo
+
+'''

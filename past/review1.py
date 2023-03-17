@@ -133,7 +133,7 @@
 # account_number
 # account.number
 # accountNumber
-# account#
+
 # pi
 # PI
 # fred
@@ -154,7 +154,8 @@
 
 # خروجی کد زیر چیست؟
 
-x = 4
-y = 5
-a = ((x) * (y))
-print(a)
+# x = 4
+# y = 5
+# a = ((x) * (y))
+# print(a)
+
