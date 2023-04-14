@@ -16,8 +16,8 @@ def getMatch(birthdays):
     for i in range(len(birthdays)):  # ['1','2','3',.....'23']
         for j in range(i+1, len(birthdays)):
             if birthdays[i] == birthdays[j]:
-                return True
-    return False
+                return birthdays[i]
+    return None
 
 
 print('''Birthday paradox.
@@ -39,9 +39,32 @@ print("Here are", numDays, 'birthdays')
 birthdays = get_birthdays(numDays)
 
 for birthday in birthdays:
-    print(birthday.day, MONTHS[birthday.month])
+    print(birthday.day, MONTHS[birthday.month-1])
 print()
 
 match = getMatch(birthdays)
 
 # Display the results
+print('In this simulation, ', end=' ')
+if match != None:
+    month_name = MONTHS[match.month - 1]
+    dateText = f'{month_name} {match.day}'
+    print('multiple people have a birthday on', dateText)
+else:
+    print("there are no matching birthdays.")
+
+print()
+
+print('Let\'s test 100,000 simulations.')
+simMatch = 0
+
+for i in range(100_000):
+    if i % 10_000 == 0:
+        print(i, 'simulations run ...')
+    birthdays = get_birthdays(numDays)
+    if getMatch(birthdays) != None:
+        simMatch += 1
+
+print('100,000 simulation run.')
+p = simMatch/100_000*100
+print(p, "%")
