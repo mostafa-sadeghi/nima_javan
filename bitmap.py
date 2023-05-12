@@ -37,7 +37,7 @@
 
 # turtle.done()
 
-MONTHS = "JanFebAprMarMayJunJulAugSepOctNovDec"
+# MONTHS = "JanFebAprMarMayJunJulAugSepOctNovDec"
 
 #  از شما خواسته شده اسم هر یک از ماه ها را از رشته بالا جدا کنید و در لیستی قرار دهید
 
@@ -48,7 +48,7 @@ months_list = []
 
 import string
 
-print(string.ascii_lowercase)
+# SYMBOLS = 'abcdefghijklmnopqrstuvwxyz'
 
 # برنامه ساخت رمز
 # ورودی:
@@ -57,6 +57,28 @@ print(string.ascii_lowercase)
 # sara
 # 1
 # tbsb
+SYMBOLS = string.ascii_lowercase # 'abcdefghijklmnopqrstuvwxyz'
+
+message = input('Enter a message to encrypt: ') # nima
+key = int(input('Enter a key (0-25) ')) # 1
+translated = ''
+for char in message:
+    char_index = SYMBOLS.find(char)
+    char_index += key
+    translated += SYMBOLS[char_index]
+
+print(translated)
+
+
+# exercise:
+# رمز و کلید به شما داده می شود از طریق ورودی
+# پیام اصلی را پرینت کن
+# پیام:
+# tbsb
+# key : 1
+# خروجی:
+# sara
+
 
 # zahra
 #  2
