@@ -1,36 +1,8 @@
-from turtle import Screen, Turtle
-from random import randint
 from time import sleep
+from snake_game_utils import *
 
-
-def generate_turtle_object(shape, color):
-    turtle_object = Turtle()
-    turtle_object.shape(shape)
-    turtle_object.color(color)
-    turtle_object.speed("fastest")
-    turtle_object.penup()
-    return turtle_object
-
-
-def change_food_position():
-    food_x = randint(-270, 270)
-    food_y = randint(-270, 270)
-    food.goto(food_x, food_y)
-
-
-def move_snake():
-    if snake_head.direction == "up":
-        yposition = snake_head.ycor()
-        snake_head.sety(yposition + 20)
-    if snake_head.direction == "down":
-        yposition = snake_head.ycor()
-        snake_head.sety(yposition - 20)
-    if snake_head.direction == "left":
-        xposition = snake_head.xcor()
-        snake_head.setx(xposition - 20)
-    if snake_head.direction == "right":
-        xposition = snake_head.xcor()
-        snake_head.setx(xposition + 20)
+score = 0
+high_score = 0
 
 
 def change_dir_to_up():
@@ -54,19 +26,30 @@ def change_dir_to_down():
 
 
 def reset():
+    global score
+    file = open("snake_scores.txt", "w")
+    file.write(str(high_score))
+    file.close()
+    score = 0
     snake_head.goto(0, 0)
     snake_head.direction = ""
-    # TODO hide bodies and clear snake_body list
+    for body in snake_body:
+        body.hideturtle()
+    snake_body.clear()
 
 
-window = Screen()
-window.title("Snake Game")
-window.bgcolor("blue")
-window.setup(width=600, height=600)
-window.tracer(0)
+window = make_screen()
 
-snake_head = generate_turtle_object("square", "black")
+snake_head = make_turtle("square", "black")
 snake_head.direction = ""
+
+food = make_turtle("circle", "red")
+change_food_position(food)
+
+score_board = make_turtle()
+score_board.hideturtle()
+score_board.goto(0, 260)
+
 window.listen()
 window.onkeypress(change_dir_to_up, "Up")
 window.onkeypress(change_dir_to_left, "Left")
@@ -74,15 +57,20 @@ window.onkeypress(change_dir_to_right, "Right")
 window.onkeypress(change_dir_to_down, "Down")
 
 
-food = generate_turtle_object("circle", "red")
-change_food_position()
-
 snake_body = []
 while True:
     window.update()
+    score_board.clear()
+    score_board.write(f"SCORE:{score}, high score:{high_score}", align="center",
+                      font=("Arial", 22))
+
     if snake_head.distance(food) < 20:
-        change_food_position()
-        new_body = generate_turtle_object("square", "grey")
+        score += 1
+        if score > high_score:
+            high_score = score
+
+        change_food_position(food)
+        new_body = make_turtle("square", "grey")
         snake_body.append(new_body)
 
     for i in range(len(snake_body) - 1, 0, -1):
@@ -95,8 +83,11 @@ while True:
         head_y = snake_head.ycor()
         snake_body[0].goto(head_x, head_y)
 
-    if snake_head.xcor() > 290:
+    if snake_head.xcor() > 290 or snake_head.xcor() < -290 or snake_head.ycor() > 290 or snake_head.ycor() < -290:
         reset()
 
-    move_snake()
-    sleep(0.2)
+    move_snake(snake_head)
+    try:
+        sleep(0.2/score*2.5)
+    except:
+        sleep(0.2)
