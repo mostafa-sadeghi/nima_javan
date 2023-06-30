@@ -1,7 +1,16 @@
+from random import randint
+from tkinter import font
+from numpy import place
 import pygame
 import sys
 import os
 pygame.init()
+
+
+def change_coin_position():
+    coin_rect.x = WINDOW_WIDTH + 100
+    coin_rect.y = randint(90, WINDOW_HEIGHT - 32)
+
 
 if getattr(sys, 'frozen', False):
     wd = sys._MEIPASS
@@ -10,45 +19,63 @@ else:
 # family_image = pygame.image.load(
 #     os.path.join(wd, 'folder', "family.jpg")).convert()
 # Create a display surface and set its caption
-WINDOW_WIDTH = 600
-WINDOW_HEIGHT = 300
+WINDOW_WIDTH = 1000
+WINDOW_HEIGHT = 400
 GREEN = (0, 255, 0)
 DARK_GREEN = (10, 50, 10)
 BLACK = (0, 0, 0)
+PLAYER_STARTING_LIVES = 5
+PLAYER_VELOCITY = 30
+COIN_STARTING_VELOCITY = 10
+COIN_ACCELARATION = 0.5
+FPS = 60
+clock = pygame.time.Clock()
+
+score = 0
+player_lives = PLAYER_STARTING_LIVES
+coin_velocity = COIN_STARTING_VELOCITY
 
 
-sound_1 = pygame.mixer.Sound('sound_1.wav')
-sound_2 = pygame.mixer.Sound('sound_2.wav')
+success_sound = pygame.mixer.Sound('sound_1.wav')
+miss_sound = pygame.mixer.Sound('sound_2.wav')
 
-# sound_1.play()
-# pygame.time.delay(2000)
-# sound_2.play()
-# pygame.time.delay(2000)
-# sound_2.set_volume(0.2)
-# sound_2.play()
 
 pygame.mixer.music.load('music.wav')
 pygame.mixer.music.play(-1, 0.0)
-# pygame.time.delay(5000)
-# pygame.mixer.music.stop()
-
-system_font = pygame.font.SysFont('calibri', 64)
-system_text = system_font.render("Dragon game",
-                                 True, GREEN, DARK_GREEN)
-system_text_rect = system_text.get_rect()
-system_text_rect.center = (WINDOW_WIDTH//2,
-                           WINDOW_HEIGHT//2)
-
-custom_font = pygame.font.Font("AttackGraffiti.ttf", 32)
-
-custom_text = custom_font.render("Dragon", True, GREEN)
-custom_text_rect = custom_text.get_rect()
-custom_text_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 100)
-
 
 display_surface = pygame.display.set_mode((WINDOW_WIDTH,
                                            WINDOW_HEIGHT))
 pygame.display.set_caption("Second Game")
+
+my_font = pygame.font.Font("AttackGraffiti.ttf", 32)
+
+score_text = my_font.render(f"Score : {score}",
+                            True, GREEN, DARK_GREEN)
+score_rect = score_text.get_rect()
+score_rect.topleft = (90, 16)
+
+title_text = my_font.render("Dragon Game ",
+                            False, GREEN,
+                            DARK_GREEN)
+title_rect = title_text.get_rect()
+title_rect.centerx = WINDOW_WIDTH/2
+title_rect.y = 16
+
+lives_text = my_font.render(f"Lives : {player_lives}", True, GREEN, DARK_GREEN)
+lives_rect = score_text.get_rect()
+lives_rect.topright = (WINDOW_WIDTH-90, 16)
+
+game_over_text = my_font.render("GAMEOVER", True, GREEN, DARK_GREEN)
+game_over_rect = game_over_text.get_rect()
+game_over_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
+
+
+continue_text = my_font.render(
+    "Press any key to play again", True, GREEN, DARK_GREEN)
+continue_text_rect = continue_text.get_rect()
+continue_text_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 32)
+
+
 dragon_left_image = pygame.image.load(os.path.join(wd,
                                                    '',
                                       "dragon_left.png"))
@@ -62,11 +89,13 @@ dragon_right_rect.topright = (WINDOW_WIDTH, 0)
 
 dragon_image = pygame.image.load("dragon_right.png")
 dragon_rect = dragon_image.get_rect()
-dragon_rect.centerx = WINDOW_WIDTH // 2
-dragon_rect.bottom = WINDOW_HEIGHT
+dragon_rect.left = 32
+dragon_rect.centery = WINDOW_HEIGHT//2
 
+coin_image = pygame.image.load("coin.png")
+coin_rect = coin_image.get_rect()
+change_coin_position()
 
-VELOCITY = 30
 
 # The main game loop
 running = True
@@ -76,27 +105,60 @@ while running:
         # print(event)
         if event.type == pygame.QUIT:
             running = False
+    keys = pygame.key.get_pressed()
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                dragon_rect.x -= VELOCITY
+    if keys[pygame.K_UP] and dragon_rect.top > 90:
+        dragon_rect.y -= PLAYER_VELOCITY
+    if keys[pygame.K_DOWN] and dragon_rect.bottom < WINDOW_HEIGHT - 20:
+        dragon_rect.y += PLAYER_VELOCITY
+
+    if keys[pygame.K_LEFT] and dragon_rect.left > 15:
+        dragon_rect.x -= PLAYER_VELOCITY
+    if keys[pygame.K_RIGHT] and dragon_rect.right < WINDOW_WIDTH - 15:
+        dragon_rect.x += PLAYER_VELOCITY
+    # Move the coin from right to left until coin exit from the left side of the screen
+    if coin_rect.x < 0:
+        player_lives -= 1
+        miss_sound.play()
+        change_coin_position()
+    else:
+        coin_rect.x -= coin_velocity
+
+    # check for collisions
+    if dragon_rect.colliderect(coin_rect):
+        score += 1
+        coin_velocity += COIN_ACCELARATION
+        success_sound.play()
+        change_coin_position()
+
+    if player_lives == 0:
+        display_surface.blit(game_over_text, game_over_rect)
+        display_surface.blit(continue_text, continue_text_rect)
+        pygame.display.update()
+        # TODO pause the game
+
+    score_text = my_font.render(f"Score : {score}", True, GREEN, DARK_GREEN)
+    lives_text = my_font.render(
+        f"lives : {player_lives}", True, GREEN, DARK_GREEN)
+
     display_surface.fill((0, 0, 0))
     # Blit (copy) a surface object at the given coordinates to our display
+    display_surface.blit(score_text, score_rect)
+    display_surface.blit(title_text, title_rect)
+    display_surface.blit(lives_text, lives_rect)
     display_surface.blit(dragon_left_image,
                          dragon_left_rect)
     display_surface.blit(dragon_right_image,
                          dragon_right_rect)
-    # display_surface.blit(system_text,
-    #                      system_text_rect)
-
-    # display_surface.blit(custom_text, custom_text_rect)
 
     pygame.draw.line(display_surface,
                      (255, 255, 255),
-                     (0, 75), (WINDOW_WIDTH, 75))
+                     (0, 64), (WINDOW_WIDTH, 64))
 
     display_surface.blit(dragon_image, dragon_rect)
+    display_surface.blit(coin_image, coin_rect)
 
     # Update the display
     pygame.display.update()
+    clock.tick(60)
 pygame.quit()

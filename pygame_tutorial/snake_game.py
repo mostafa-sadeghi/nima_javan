@@ -1,8 +1,8 @@
 from time import sleep
 from snake_game_utils import *
-
 score = 0
 high_score = 0
+speed = 0.3
 
 
 def change_dir_to_up():
@@ -88,6 +88,9 @@ while True:
 
     move_snake(snake_head)
     try:
-        sleep(0.2/score*2.5)
+        speed = 0.2/score*2.5
+        print(speed)
+        sleep(speed)
+        # sleep(0.2*(1+score/10))
     except:
-        sleep(0.2)
+        sleep(speed)
