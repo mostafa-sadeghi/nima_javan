@@ -88,9 +88,9 @@ dragon_right_rect = dragon_right_image.get_rect()
 dragon_right_rect.topright = (WINDOW_WIDTH, 0)
 
 dragon_image = pygame.image.load("dragon_right.png")
-dragon_rect = dragon_image.get_rect()
-dragon_rect.left = 32
-dragon_rect.centery = WINDOW_HEIGHT//2
+player_rect = dragon_image.get_rect()
+player_rect.centerx = 32
+player_rect.bottom = WINDOW_HEIGHT
 
 coin_image = pygame.image.load("coin.png")
 coin_rect = coin_image.get_rect()
@@ -105,17 +105,27 @@ while running:
         # print(event)
         if event.type == pygame.QUIT:
             running = False
+
+        # if event.type == pygame.KEYDOWN:
+        #     if event.key == pygame.K_DOWN:
+        #         player_rect.y += PLAYER_VELOCITY
+
+        #     if event.key == pygame.K_UP:
+        #         player_rect.y -= PLAYER_VELOCITY
+
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_UP] and dragon_rect.top > 90:
-        dragon_rect.y -= PLAYER_VELOCITY
-    if keys[pygame.K_DOWN] and dragon_rect.bottom < WINDOW_HEIGHT - 20:
-        dragon_rect.y += PLAYER_VELOCITY
+    if keys[pygame.K_UP] and player_rect.top > 90:
+        player_rect.y -= PLAYER_VELOCITY
 
-    if keys[pygame.K_LEFT] and dragon_rect.left > 15:
-        dragon_rect.x -= PLAYER_VELOCITY
-    if keys[pygame.K_RIGHT] and dragon_rect.right < WINDOW_WIDTH - 15:
-        dragon_rect.x += PLAYER_VELOCITY
+    if keys[pygame.K_DOWN] and player_rect.bottom < WINDOW_HEIGHT - 20:
+        player_rect.y += PLAYER_VELOCITY
+
+    if keys[pygame.K_LEFT] and player_rect.left > 15:
+        player_rect.x -= PLAYER_VELOCITY
+
+    if keys[pygame.K_RIGHT] and player_rect.right < WINDOW_WIDTH - 15:
+        player_rect.x += PLAYER_VELOCITY
     # Move the coin from right to left until coin exit from the left side of the screen
     if coin_rect.x < 0:
         player_lives -= 1
@@ -125,21 +135,38 @@ while running:
         coin_rect.x -= coin_velocity
 
     # check for collisions
-    if dragon_rect.colliderect(coin_rect):
+    if player_rect.colliderect(coin_rect):
         score += 1
         coin_velocity += COIN_ACCELARATION
         success_sound.play()
         change_coin_position()
-
-    if player_lives == 0:
-        display_surface.blit(game_over_text, game_over_rect)
-        display_surface.blit(continue_text, continue_text_rect)
-        pygame.display.update()
-        # TODO pause the game
-
     score_text = my_font.render(f"Score : {score}", True, GREEN, DARK_GREEN)
     lives_text = my_font.render(
         f"lives : {player_lives}", True, GREEN, DARK_GREEN)
+
+    if player_lives == 0:
+        display_surface.blit(score_text, score_rect)
+        display_surface.blit(title_text, title_rect)
+        display_surface.blit(lives_text, lives_rect)
+        display_surface.blit(game_over_text, game_over_rect)
+        display_surface.blit(continue_text, continue_text_rect)
+        pygame.display.update()
+        pygame.mixer.music.stop()
+        is_paused = True
+
+        while is_paused:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    score = 0
+                    player_lives = PLAYER_STARTING_LIVES
+                    player_rect.centerx = 32
+                    player_rect.bottom = WINDOW_HEIGHT
+                    coin_velocity = COIN_STARTING_VELOCITY
+                    pygame.mixer.music.play(-1, 0.0)
+                    is_paused = False
+                if event.type == pygame.QUIT:
+                    is_paused = False
+                    running = False
 
     display_surface.fill((0, 0, 0))
     # Blit (copy) a surface object at the given coordinates to our display
@@ -154,8 +181,7 @@ while running:
     pygame.draw.line(display_surface,
                      (255, 255, 255),
                      (0, 64), (WINDOW_WIDTH, 64))
-
-    display_surface.blit(dragon_image, dragon_rect)
+    display_surface.blit(dragon_image, player_rect)
     display_surface.blit(coin_image, coin_rect)
 
     # Update the display
