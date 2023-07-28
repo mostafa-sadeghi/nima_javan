@@ -1,0 +1,6 @@
+*.exe
+*.spec
+*.mp3
+.vscode
+dist
+build

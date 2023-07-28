@@ -58,14 +58,18 @@ apple_rect = pygame.draw.rect(display_surface, RED, apple_coord)
 head_coord = (head_x, head_y, SNAKE_SIZE, SNAKE_SIZE)
 head_rect = pygame.draw.rect(display_surface, GREEN, head_coord)
 
+pickup_sound = pygame.mixer.Sound("pick_up_sound.wav")
+bgmusic = pygame.mixer.Sound("Bad Piggies Theme.mp3")
+bgmusic.set_volume(.3)
+bgmusic.play(-1)
 
 body_coords = []
 
-runnig = True
-while runnig:
+running = True
+while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            runnig = False
+            running = False
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -82,6 +86,8 @@ while runnig:
                 snake_dx = 0
                 snake_dy = SNAKE_SIZE
 
+    body_coords.insert(0, head_coord)
+    body_coords.pop()
     head_x += snake_dx
     head_y += snake_dy
     head_coord = (head_x, head_y, SNAKE_SIZE, SNAKE_SIZE)
@@ -91,7 +97,35 @@ while runnig:
         display_surface.blit(continue_text, continue_rect)
         pygame.display.update()
 
-        # TODO
+        # pause the game
+        is_paused = True
+        while is_paused:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    score = 0
+                    head_x = WINDOW_WIDTH/2
+                    head_y = WINDOW_HEIGHT/2 + 100
+                    head_coord = (head_x, head_y, SNAKE_SIZE, SNAKE_SIZE)
+                    is_paused = False
+                    body_coords = []
+
+                    snake_dx = 0
+                    snake_dy = 0
+
+                if event.type == pygame.QUIT:
+                    is_paused = False
+                    running = False
+
+    if head_rect.colliderect(apple_rect):
+        score += 1
+        pickup_sound.play()
+
+        apple_x = random.randint(0, WINDOW_WIDTH - SNAKE_SIZE)
+        apple_y = random.randint(0, WINDOW_HEIGHT - SNAKE_SIZE)
+        apple_coord = (apple_x, apple_y, SNAKE_SIZE, SNAKE_SIZE)
+        body_coords.append(head_coord)
+
+    score_text = font.render(f"Score: {score}", True, GREEN, DARKRED)
 
     display_surface.fill(WHITE)
     head_rect = pygame.draw.rect(display_surface, GREEN, head_coord)
@@ -99,6 +133,10 @@ while runnig:
 
     display_surface.blit(title_text, title_rect)
     display_surface.blit(score_text, score_rect)
+
+    for body in body_coords:
+        pygame.draw.rect(display_surface, GREEN, body)
+
     pygame.display.update()
 
     clock.tick(FPS)

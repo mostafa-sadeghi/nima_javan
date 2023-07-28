@@ -78,7 +78,7 @@ continue_text_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 32)
 
 dragon_left_image = pygame.image.load(os.path.join(wd,
                                                    '',
-                                      "dragon_left.png"))
+                                                   "dragon_left.png"))
 dragon_left_rect = dragon_left_image.get_rect()
 dragon_left_rect.topleft = (0, 0)
 
