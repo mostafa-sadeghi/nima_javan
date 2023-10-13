@@ -41,3 +41,7 @@ class Player(Sprite):
         self.warp_sound.play()
         self.rect.centerx = WINDOW_WIDTH/2
         self.rect.bottom = WINDOW_HEIGHT
+
+    def reset(self):
+        self.rect.bottom = WINDOW_HEIGHT
+        self.rect.centerx = WINDOW_WIDTH/2

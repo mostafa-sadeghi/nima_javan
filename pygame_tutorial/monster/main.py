@@ -30,7 +30,7 @@ while running:
     monster_group.update()
 
     game.draw(display_surface)
-    game.update()
+    game.update(display_surface)
     pygame.display.update()
     clock.tick(FPS)
 pygame.quit()
