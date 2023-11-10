@@ -1,6 +1,7 @@
 from pygame.sprite import Sprite
 import pygame
 from constants import *
+from player_bullet import PlayerBullet
 
 class Player(Sprite):
     def __init__(self, bullet_group):
@@ -17,10 +18,14 @@ class Player(Sprite):
 
     def move(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT] and self.rect.x > 0:
+        if keys[pygame.K_LEFT] and self.rect.left > 0:
             self.rect.x -= self.velocity
-        if keys[pygame.K_RIGHT] and self.rect.x < SCREEN_WIDTH:
+        if keys[pygame.K_RIGHT] and self.rect.right < SCREEN_WIDTH:
             self.rect.x += self.velocity
 
     def fire(self):
-        pass
+        self.fire_sound.play()
+        PlayerBullet(self.rect.centerx, self.rect.top, self.bullet_group)
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
