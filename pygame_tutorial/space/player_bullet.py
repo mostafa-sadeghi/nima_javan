@@ -8,8 +8,8 @@ class PlayerBullet(Sprite):
         super().__init__()
         self.image = pygame.image.load("assets/green_laser.png")
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.centerx = x
+        self.rect.top = y
         bullet_group.add(self)
         
 

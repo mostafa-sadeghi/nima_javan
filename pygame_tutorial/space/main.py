@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from player import Player
+from game import Game
 pygame.init()
 
 
@@ -8,7 +9,11 @@ pygame.init()
 clock = pygame.time.Clock()
 player_bullet_group = pygame.sprite.Group()
 my_player = Player(player_bullet_group)
+enemy_group = pygame.sprite.Group()
+enemy_bullet_group = pygame.sprite.Group()
 
+my_game = Game(my_player, enemy_group,player_bullet_group,enemy_bullet_group)
+my_game.start_new_level()
 
 running = True
 while running:
@@ -23,5 +28,7 @@ while running:
     my_player.draw(screen)
     player_bullet_group.update()
     player_bullet_group.draw(screen)
+    enemy_group.update()
+    enemy_group.draw(screen)
     pygame.display.update()
     clock.tick(FPS)
