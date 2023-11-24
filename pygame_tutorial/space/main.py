@@ -4,8 +4,6 @@ from player import Player
 from game import Game
 pygame.init()
 
-
-
 clock = pygame.time.Clock()
 player_bullet_group = pygame.sprite.Group()
 my_player = Player(player_bullet_group)
@@ -30,5 +28,6 @@ while running:
     player_bullet_group.draw(screen)
     enemy_group.update()
     enemy_group.draw(screen)
+    my_game.if_on_edge()
     pygame.display.update()
     clock.tick(FPS)

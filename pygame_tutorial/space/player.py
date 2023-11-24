@@ -3,12 +3,13 @@ import pygame
 from constants import *
 from player_bullet import PlayerBullet
 
+
 class Player(Sprite):
     def __init__(self, bullet_group):
         super().__init__()
         self.image = pygame.image.load("assets/player_ship.png")
         self.rect = self.image.get_rect(
-            center=(SCREEN_WIDTH/2, SCREEN_HEIGHT-32))
+            center=(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 32))
 
         self.lives = 3
         self.velocity = 5
