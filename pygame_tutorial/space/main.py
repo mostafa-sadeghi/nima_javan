@@ -29,5 +29,6 @@ while running:
     enemy_group.update()
     enemy_group.draw(screen)
     my_game.if_on_edge()
+    my_game.check_enemy_hit()
     pygame.display.update()
     clock.tick(FPS)
