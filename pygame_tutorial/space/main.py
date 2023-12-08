@@ -26,9 +26,12 @@ while running:
     my_player.draw(screen)
     player_bullet_group.update()
     player_bullet_group.draw(screen)
+    enemy_bullet_group.update()################
+    enemy_bullet_group.draw(screen)################
     enemy_group.update()
     enemy_group.draw(screen)
     my_game.if_on_edge()
     my_game.check_enemy_hit()
+    my_game.draw()################
     pygame.display.update()
     clock.tick(FPS)

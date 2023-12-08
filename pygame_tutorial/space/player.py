@@ -25,8 +25,9 @@ class Player(Sprite):
             self.rect.x += self.velocity
 
     def fire(self):
-        self.fire_sound.play()
-        PlayerBullet(self.rect.centerx, self.rect.top, self.bullet_group)
+        if len(self.bullet_group) < 2:################
+            self.fire_sound.play()
+            PlayerBullet(self.rect.centerx, self.rect.top, self.bullet_group)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)

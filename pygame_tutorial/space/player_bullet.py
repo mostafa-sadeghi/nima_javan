@@ -15,3 +15,5 @@ class PlayerBullet(Sprite):
 
     def update(self):
         self.rect.y -= 5
+        if self.rect.top < 0:################
+            self.kill()

@@ -1,6 +1,8 @@
+import random
 from pygame.sprite import Sprite
 import pygame
 from constants import *
+from enemy_bullet import EnemyBullet
 
 
 class Enemy(Sprite):
@@ -18,3 +20,8 @@ class Enemy(Sprite):
         
     def update(self):
         self.rect.x += self.direction * self.speed
+        if random.randint(1,1000) > 999 and len(self.bullet_group) < 3:################
+            self.fire()
+
+    def fire(self):################
+        EnemyBullet(self.rect.centerx, self.rect.top, self.bullet_group)

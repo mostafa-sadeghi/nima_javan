@@ -29,6 +29,11 @@ class Game:
             self.enemy_hit_sound.play()
             self.score += 1
 
+        ################
+
+        if pygame.sprite.spritecollide(self.player, self.enemy_bullet_group, True):
+            
+            self.player.lives -= 1
 
     def if_on_edge(self):
         on_edge = False
@@ -48,14 +53,17 @@ class Game:
                 self.reset_game()
 
     def draw(self):
-        """
-        نمایش دادن 
-        امتیاز
-        شماره مرحله
-        جان بازیکن
-        در بالای صفحه
-        """
-        pass
+        ###########
+        score_text = self.font32.render(f"Score:{self.score}", True, (10,230,240))
+        score_rect = score_text.get_rect(topleft=(0,0))
+        level_text = self.font32.render(f"level:{self.level_number}", True, (10,230,240))
+        level_rect = level_text.get_rect(topright=(SCREEN_WIDTH,0))
+        lives_text = self.font32.render(f"lives:{self.player.lives}", True, (10,230,240))
+        lives_rect = lives_text.get_rect(centerx=SCREEN_WIDTH/2, top=0)
+        screen.blit(score_text, score_rect)
+        screen.blit(level_text, level_rect)
+        screen.blit(lives_text, lives_rect)
+
 
     def reset_game(self):
         last_reset_time = pygame.time.get_ticks()
